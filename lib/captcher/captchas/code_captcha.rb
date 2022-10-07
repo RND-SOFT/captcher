@@ -24,7 +24,29 @@ module Captcher
       private
 
       def random_text
-        @random_text ||= Array.new(own_config[:count]).map { random_char }.join("")
+        count = own_config[:count].to_i
+        count_nums = count / 2
+        count_latin = count - count_nums
+        nums_list = Array.new(count_nums) { rand(10) }
+        latins_list = Array.new(count_latin) { random_char }
+        @random_text ||= shuffle_string(nums_list + latins_list)
+      end
+
+      def shuffle_string(list)
+        shuffled_str = list.shuffle.join
+        sequence_incorrect?(shuffled_str) ? shuffle_string(list) : shuffled_str
+      end
+
+      def sequence_incorrect?(str)
+        count = own_config[:count].to_i
+        count_nums = count / 2
+        numeric_string?(str[0...count_nums]) || numeric_string?(str[-count_nums...count])
+      end
+
+      def numeric_string?(str)
+        !Float(str).nil?
+      rescue StandardError
+        false
       end
 
       def random_char
