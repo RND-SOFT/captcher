@@ -24,12 +24,20 @@ module Captcher
       private
 
       def random_text
+        @random_text = own_config[:include_digits] ? random_text_with_digits : random_letters_text
+      end
+
+      def random_letters_text
+        Array.new(own_config[:count]) { random_char }.join("")
+      end
+
+      def random_text_with_digits
         count = own_config[:count].to_i
         count_nums = count / 2
-        count_latin = count - count_nums
+        count_letters = count - count_nums
         nums_list = Array.new(count_nums) { rand(10) }
-        latins_list = Array.new(count_latin) { random_char }
-        @random_text ||= shuffle_string(nums_list + latins_list)
+        letters_list = Array.new(count_letters) { random_char }
+        shuffle_string(nums_list + letters_list)
       end
 
       def shuffle_string(list)
