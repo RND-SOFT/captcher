@@ -39,12 +39,13 @@ module Captcher
       c.mode = :cached_captcha
 
       c.code_captcha do |cc|
-        cc.fonts Dir[Captcher::Engine.root.join("lib/fonts/**")]
-        cc.font_size 50
-        cc.font_color "black"
-        cc.count 5
-        cc.background "#999999"
-        cc.format "png"
+        cc.fonts          Dir[Captcher::Engine.root.join("lib/fonts/**")]
+        cc.font_size      50
+        cc.font_color     "black"
+        cc.count          5
+        cc.background     "#999999"
+        cc.format         "png"
+        cc.include_digits true
       end
 
       c.cached_captcha do |cc|
