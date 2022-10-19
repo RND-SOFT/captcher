@@ -45,6 +45,7 @@ module Captcher
         cc.count          5
         cc.background     "#999999"
         cc.format         "png"
+        cc.resize         "180x35"
         cc.include_digits true
       end
 

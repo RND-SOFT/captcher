@@ -19,6 +19,7 @@ module Captcher
         i.gravity   "center"
         i.canvas    config[:background]
         i.draw      "text 0,0 '#{text}'"
+        i.resize    config[:resize]
         i.noise + "Gaussian"
         i << "#{config[:format]}:-"
       end
